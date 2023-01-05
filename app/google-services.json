@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "483808442216",
+    "firebase_url": "https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "test-auth-android-eee23",
+    "storage_bucket": "test-auth-android-eee23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483808442216:android:593d0bbb8d74633fa048dd",
+        "android_client_info": {
+          "package_name": "com.example.happytech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483808442216-it0hihvogkm3g54s64rfm4tua1an8ujo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSQLq4XG7nEbVE7AfWTqmmbX6RGnhDbzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483808442216-it0hihvogkm3g54s64rfm4tua1an8ujo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483808442216:android:c2933425843522a3a048dd",
+        "android_client_info": {
+          "package_name": "com.example.happytechhomepageui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483808442216-it0hihvogkm3g54s64rfm4tua1an8ujo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSQLq4XG7nEbVE7AfWTqmmbX6RGnhDbzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483808442216-it0hihvogkm3g54s64rfm4tua1an8ujo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
