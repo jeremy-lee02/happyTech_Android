@@ -48,9 +48,9 @@
             android:orientation="vertical"
             android:gravity="center">
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/man" />
+                android:layout_height="80dp" />
             <TextView
                 android:id="@+id/nameTxt"
                 android:layout_width="wrap_content"

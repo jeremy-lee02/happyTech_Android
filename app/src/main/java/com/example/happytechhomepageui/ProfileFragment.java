@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +86,7 @@ public class ProfileFragment extends Fragment {
         Button logoutBtn = (Button) getView().findViewById(R.id.logoutBtn);
         Button edit = (Button) getView().findViewById(R.id.editProfile);
         Button save = (Button) getView().findViewById(R.id.saveProfile);
+        ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
 
         //TODO: Edit Profile
         edit.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,12 @@ public class ProfileFragment extends Fragment {
                     email.setText(userProfile.getEmail());
                     phone.setText(userProfile.getPhoneNumber());
                     address.setText(userProfile.getAddress());
+                    //Check gender
+                    if (userProfile.getGender().equals("Male")){
+                        avatar.setImageResource(R.drawable.man);
+                    }else {
+                        avatar.setImageResource(R.drawable.female);
+                    }
                 }
             }
             @Override
