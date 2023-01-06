@@ -1,6 +1,7 @@
 package com.example.happytechhomepageui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +39,9 @@ public class ProfileFragment extends Fragment {
     String uID;
     TextView fullName, email, phone, address;
     Button logoutBtn;
-    boolean isEdit = false;
+    User userProfile;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -113,6 +117,9 @@ public class ProfileFragment extends Fragment {
                 phone.setFocusable(false);
                 address.setFocusable(false);
                 //TODO: Do Update Function Here!
+
+
+
             }
         });
 
@@ -120,7 +127,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                ProfileFragment profileFragment = new ProfileFragment();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -130,7 +136,7 @@ public class ProfileFragment extends Fragment {
         reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
+                userProfile = snapshot.getValue(User.class);
                 if (userProfile != null){
                     firstName.setText(userProfile.getFirstName());
                     lastName.setText(userProfile.getLastName());
@@ -152,6 +158,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+    public void updateUser(User updatedUser, DatabaseReference reference, String uId){
+        reference.child("Users").child(uId).setValue(updatedUser);
     }
 
     @Override

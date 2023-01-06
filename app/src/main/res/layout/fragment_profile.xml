@@ -59,7 +59,7 @@
                 android:textSize="24sp"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
-                android:text="Full Name"/>
+                android:text="Loading..."/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -83,14 +83,14 @@
 
             <EditText
                 android:id="@+id/firstTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:background="#00FFFFFF"
                 android:focusable="false"
-                android:text="Null" />
+                android:text="Loading..." />
 
         </LinearLayout>
 
@@ -111,14 +111,40 @@
 
             <EditText
                 android:id="@+id/lastTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:background="#00FFFFFF"
                 android:focusable="false"
-                android:text="Null" />
+                android:text="Loading..." />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawablePadding="12dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:padding="15dp"
+                android:text="Gender: " />
+
+            <EditText
+                android:id="@+id/genderTxt"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:background="#00FFFFFF"
+                android:focusable="false"
+                android:text="Loading..." />
         </LinearLayout>
 
         <LinearLayout
@@ -138,14 +164,14 @@
 
             <EditText
                 android:id="@+id/emailTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:background="#00FFFFFF"
                 android:focusable="false"
-                android:text="Null" />
+                android:text="Loading..." />
         </LinearLayout>
 
         <LinearLayout
@@ -164,14 +190,14 @@
 
             <EditText
                 android:id="@+id/phoneTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:background="#00FFFFFF"
                 android:focusable="false"
-                android:text="Null" />
+                android:text="Loading..." />
         </LinearLayout>
 
         <LinearLayout
@@ -191,14 +217,14 @@
 
             <EditText
                 android:id="@+id/addressTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:background="#00FFFFFF"
                 android:focusable="false"
-                android:text="Null" />
+                android:text="Loading..." />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
