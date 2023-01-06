@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -34,6 +36,7 @@ public class ProfileFragment extends Fragment {
     String uID;
     TextView fullName, email, phone, address;
     Button logoutBtn;
+    boolean isEdit = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,11 +76,43 @@ public class ProfileFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
+        TextView firstName = (TextView) getView().findViewById(R.id.firstTxt);
+        TextView lastName = (TextView) getView().findViewById(R.id.lastTxt);
         TextView fullName = (TextView) getView().findViewById(R.id.nameTxt);
         TextView email = (TextView) getView().findViewById(R.id.emailTxt);
         TextView phone = (TextView) getView().findViewById(R.id.phoneTxt);
         TextView address = (TextView) getView().findViewById(R.id.addressTxt);
         Button logoutBtn = (Button) getView().findViewById(R.id.logoutBtn);
+        Button edit = (Button) getView().findViewById(R.id.editProfile);
+        Button save = (Button) getView().findViewById(R.id.saveProfile);
+
+        //TODO: Edit Profile
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit.setVisibility(View.GONE);
+                save.setVisibility(View.VISIBLE);
+                firstName.setFocusableInTouchMode(true);
+                lastName.setFocusableInTouchMode(true);
+                email.setFocusableInTouchMode(true);
+                phone.setFocusableInTouchMode(true);
+                address.setFocusableInTouchMode(true);
+            }
+        });
+        //TODO: Save Profile
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save.setVisibility(View.GONE);
+                edit.setVisibility(View.VISIBLE);
+                firstName.setFocusable(false);
+                lastName.setFocusable(false);
+                email.setFocusable(false);
+                phone.setFocusable(false);
+                address.setFocusable(false);
+                //TODO: Do Update Function Here!
+            }
+        });
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +124,14 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
                 if (userProfile != null){
+                    firstName.setText(userProfile.getFirstName());
+                    lastName.setText(userProfile.getLastName());
                     fullName.setText(userProfile.getFirstName() + " " + userProfile.getLastName());
                     email.setText(userProfile.getEmail());
                     phone.setText(userProfile.getPhoneNumber());
@@ -102,7 +140,6 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                ProfileFragment profileFragment = new ProfileFragment();
                 Toast.makeText(getContext(), "SomeThing went wrong", Toast.LENGTH_LONG).show();
             }
         });
