@@ -3,6 +3,7 @@ package com.example.happytechhomepageui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,23 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference reference;
     String uID;
-    TextView fullName, email, phone, address;
-    Button logoutBtn;
     User userProfile;
 
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -57,15 +48,6 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -87,10 +69,12 @@ public class ProfileFragment extends Fragment {
         TextView email = (TextView) getView().findViewById(R.id.emailTxt);
         TextView phone = (TextView) getView().findViewById(R.id.phoneTxt);
         TextView address = (TextView) getView().findViewById(R.id.addressTxt);
+        TextView gender = (TextView) getView().findViewById(R.id.genderTxt);
         Button logoutBtn = (Button) getView().findViewById(R.id.logoutBtn);
         Button edit = (Button) getView().findViewById(R.id.editProfile);
         Button save = (Button) getView().findViewById(R.id.saveProfile);
         ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
+
 
         //TODO: Edit Profile
         edit.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +87,7 @@ public class ProfileFragment extends Fragment {
                 email.setFocusableInTouchMode(true);
                 phone.setFocusableInTouchMode(true);
                 address.setFocusableInTouchMode(true);
+                // TODO: Do sth to notify user when edit is clicked!
             }
         });
         //TODO: Save Profile
@@ -117,8 +102,11 @@ public class ProfileFragment extends Fragment {
                 phone.setFocusable(false);
                 address.setFocusable(false);
                 //TODO: Do Update Function Here!
-
-
+                User updatedUser = new User(email.getText().toString(), firstName.getText().toString(),
+                        lastName.getText().toString(),phone.getText().toString(),address.getText().toString(),
+                        gender.getText().toString());
+                reference.child(uID).setValue(updatedUser);
+                Toast.makeText(getContext(), "Update Success!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -144,6 +132,7 @@ public class ProfileFragment extends Fragment {
                     email.setText(userProfile.getEmail());
                     phone.setText(userProfile.getPhoneNumber());
                     address.setText(userProfile.getAddress());
+                    gender.setText(userProfile.getGender());
                     //Check gender
                     if (userProfile.getGender().equals("Male")){
                         avatar.setImageResource(R.drawable.man);
