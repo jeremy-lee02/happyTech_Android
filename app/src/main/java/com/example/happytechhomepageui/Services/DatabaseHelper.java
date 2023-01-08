@@ -44,7 +44,8 @@ public class DatabaseHelper {
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
-                    Product product = new Product(id,name,description,price);
+                    String category = dsp.child("category").getValue().toString();
+                    Product product = new Product(id,name,description,price,category);
                     productList.add(product);
                 }
 
@@ -59,19 +60,21 @@ public class DatabaseHelper {
         return productList;
     }
     //Add PRODUCT
-    public void addProduct(int productID, String name, String description, long price) {
+    public void addProduct(int productID, String name, String description, long price, String category) {
         db = FirebaseDatabase.getInstance().getReference("Products");
-        Product product = new Product(productID,  name,  description,  price);
+        Product product = new Product(productID,  name,  description,  price, category);
         db.child(Integer.toString(productID)).setValue(product);
     }
     //Update PRODUCT
-    public void updateProduct(int productID, String name, String description, long price){
+    public void updateProduct(int productID, String name, String description, long price, String category){
         db = FirebaseDatabase.getInstance().getReference("Products");
         HashMap product = new HashMap();
         product.put("productID", productID);
         product.put("name", name);
         product.put("description", description);
         product.put("price", price);
+        product.put("category", category);
+
         db.child(Integer.toString(productID)).updateChildren(product).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {

@@ -1,16 +1,17 @@
 package com.example.happytechhomepageui.Modals;
 
+import java.util.HashMap;
+
 public class Product {
-    private  int productID;
+    private int productID;
     private String name;
     private String description;
     private long price;
+    private String category;
 
-    public Product(){
 
-    }
 
-    public Product(int productID, String name, String description, long price) {
+    public Product(int productID, String name, String description, long price, String category) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -47,5 +48,17 @@ public class Product {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Product(){
+
     }
 }
