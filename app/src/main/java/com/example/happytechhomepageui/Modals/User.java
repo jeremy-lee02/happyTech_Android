@@ -1,5 +1,7 @@
 package com.example.happytechhomepageui.Modals;
 
+import java.util.HashMap;
+
 public class User {
     private String email;
     private String firstName;
@@ -7,6 +9,7 @@ public class User {
     private String phoneNumber ;
     private String address;
     private String gender;
+
 
     public User() {
     }
