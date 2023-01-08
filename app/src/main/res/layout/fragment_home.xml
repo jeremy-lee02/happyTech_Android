@@ -58,6 +58,7 @@
                 <SearchView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:iconifiedByDefault="false"
                     android:background="@drawable/custom_searchview"
                     android:layout_margin="15dp"/>
 

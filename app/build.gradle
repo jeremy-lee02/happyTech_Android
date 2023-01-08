@@ -7,6 +7,14 @@ android {
     namespace 'com.example.happytechhomepageui'
     compileSdk 32
 
+    dataBinding {
+        enabled=true
+    }
+
+    viewBinding {
+        enabled=true
+    }
+
     defaultConfig {
         applicationId "com.example.happytechhomepageui"
         minSdk 21
@@ -40,7 +48,28 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+<<<<<<< HEAD
 
     //carousel view
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+=======
+    //Recycler View (including List adapter)
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    //Material Library (for Fab and other material stuff)
+    implementation 'com.google.android.material:material:1.7.0'
+
+    // ViewModel & Livedata
+    def lifecycle_version = "2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    //Navigation Component
+    def nav_version = "2.5.3"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    //Glide Library
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+>>>>>>> origin/Minh
 }
