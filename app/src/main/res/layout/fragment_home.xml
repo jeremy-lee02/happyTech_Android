@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:id="@+id/container">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -52,9 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
+                android:orientation="vertical">
                 <SearchView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -83,13 +82,19 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/cat1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Products"
+                        android:layout_marginTop="20dp"/>
+                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
-
-
-
     </LinearLayout>
 
 

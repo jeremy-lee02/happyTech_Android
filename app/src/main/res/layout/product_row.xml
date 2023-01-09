@@ -28,5 +28,4 @@
         android:text="Price"
         android:layout_gravity="center"/>
 
-
 </LinearLayout>
