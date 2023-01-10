@@ -1,12 +1,16 @@
 package com.example.happytechhomepageui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,20 +27,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.w3c.dom.Text;
+
 public class ProfileFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference reference;
     String uID;
-    TextView fullName, email, phone, address;
-    Button logoutBtn;
+    User userProfile;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -49,15 +48,6 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -73,40 +63,93 @@ public class ProfileFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
+        TextView firstName = (TextView) getView().findViewById(R.id.firstTxt);
+        TextView lastName = (TextView) getView().findViewById(R.id.lastTxt);
         TextView fullName = (TextView) getView().findViewById(R.id.nameTxt);
         TextView email = (TextView) getView().findViewById(R.id.emailTxt);
         TextView phone = (TextView) getView().findViewById(R.id.phoneTxt);
         TextView address = (TextView) getView().findViewById(R.id.addressTxt);
+        TextView gender = (TextView) getView().findViewById(R.id.genderTxt);
         Button logoutBtn = (Button) getView().findViewById(R.id.logoutBtn);
+        Button edit = (Button) getView().findViewById(R.id.editProfile);
+        Button save = (Button) getView().findViewById(R.id.saveProfile);
+        ImageView avatar = (ImageView) getView().findViewById(R.id.avatar);
+
+
+        //TODO: Edit Profile
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit.setVisibility(View.GONE);
+                save.setVisibility(View.VISIBLE);
+                firstName.setFocusableInTouchMode(true);
+                lastName.setFocusableInTouchMode(true);
+                email.setFocusableInTouchMode(true);
+                phone.setFocusableInTouchMode(true);
+                address.setFocusableInTouchMode(true);
+                // TODO: Do sth to notify user when edit is clicked!
+            }
+        });
+        //TODO: Save Profile
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save.setVisibility(View.GONE);
+                edit.setVisibility(View.VISIBLE);
+                firstName.setFocusable(false);
+                lastName.setFocusable(false);
+                email.setFocusable(false);
+                phone.setFocusable(false);
+                address.setFocusable(false);
+                //TODO: Do Update Function Here!
+                User updatedUser = new User(email.getText().toString(), firstName.getText().toString(),
+                        lastName.getText().toString(),phone.getText().toString(),address.getText().toString(),
+                        gender.getText().toString());
+                reference.child(uID).setValue(updatedUser);
+                Toast.makeText(getContext(), "Update Success!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                ProfileFragment profileFragment = new ProfileFragment();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
+
         reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
+                userProfile = snapshot.getValue(User.class);
                 if (userProfile != null){
+                    firstName.setText(userProfile.getFirstName());
+                    lastName.setText(userProfile.getLastName());
                     fullName.setText(userProfile.getFirstName() + " " + userProfile.getLastName());
                     email.setText(userProfile.getEmail());
                     phone.setText(userProfile.getPhoneNumber());
                     address.setText(userProfile.getAddress());
+                    gender.setText(userProfile.getGender());
+                    //Check gender
+                    if (userProfile.getGender().equals("Male")){
+                        avatar.setImageResource(R.drawable.man);
+                    }else {
+                        avatar.setImageResource(R.drawable.female);
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                ProfileFragment profileFragment = new ProfileFragment();
                 Toast.makeText(getContext(), "SomeThing went wrong", Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+    public void updateUser(User updatedUser, DatabaseReference reference, String uId){
+        reference.child("Users").child(uId).setValue(updatedUser);
     }
 
     @Override

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, homeFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

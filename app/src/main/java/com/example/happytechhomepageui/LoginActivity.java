@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView inputEmail, inputPass;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
-    Button createBtn, loginBtn;
+    Button createBtn, loginBtn, forgotPass;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         createBtn  = (Button) findViewById(R.id.createAccount);
         loginBtn = (Button) findViewById(R.id.login_btn);
+        forgotPass = (Button) findViewById(R.id.forgotPassword);
         inputEmail = (TextView) findViewById(R.id.inputEmail);
         inputPass = (TextView) findViewById(R.id.inputPassword);
         progressDialog = new ProgressDialog(this);
@@ -47,6 +48,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
                 LoginAuth();
             }
         });
-
     }
 
     private void LoginAuth() {
