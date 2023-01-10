@@ -43,4 +43,5 @@ dependencies {
 
     //carousel view
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
 }
