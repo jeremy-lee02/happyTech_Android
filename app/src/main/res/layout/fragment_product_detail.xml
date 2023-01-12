@@ -28,6 +28,7 @@
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:transitionName="photoToAnimate"
+                android:src="@drawable/logo"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,48 +39,68 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{productViewModel.product.name}"
+                android:text="Product Name"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/productImageView" />
 
             <TextView
-                android:id="@+id/availability"
+                android:id="@+id/tittle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/product_name"
-                android:text="@{productViewModel.product.available ? `Available` : `Out of Stock`}"
-                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Price: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
             <TextView
                 android:id="@+id/thePriceOfProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="24dp"
+                android:textSize="18sp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/tittle2"
+                app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+            <TextView
+                android:id="@+id/tittle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Description: "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/availability"
-                android:text="@{String.valueOf(productViewModel.product.price)+ `$`}"/>
+                app:layout_constraintTop_toBottomOf="@+id/tittle2" />
 
             <TextView
                 android:id="@+id/productDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@{productViewModel.product.description}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thePriceOfProduct"
-                tools:ignore="HardcodedText,TextContrastCheck,TextContrastCheck" />
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/tittle3"
+                app:layout_constraintTop_toBottomOf="@+id/thePriceOfProduct" />
 
-            <Space
-                android:id="@+id/space"
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productDescription" />
+
+            <!--            <Space-->
+<!--                android:id="@+id/space"-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/productDescription" />-->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

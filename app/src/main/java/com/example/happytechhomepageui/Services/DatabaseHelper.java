@@ -45,7 +45,8 @@ public class DatabaseHelper {
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
                     String category = dsp.child("category").getValue().toString();
-                    Product product = new Product(id,name,description,price,category);
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
                     productList.add(product);
                 }
                 firebaseCallback.onCallback(productList);

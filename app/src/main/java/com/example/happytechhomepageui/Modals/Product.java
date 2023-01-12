@@ -9,14 +9,17 @@ public class Product implements Serializable {
     private String description;
     private long price;
     private String category;
+    private int available_num;
 
 
 
-    public Product(int productID, String name, String description, long price, String category) {
+    public Product(int productID, String name, String description, long price, String category, int available_num) {
         this.productID = productID;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.category = category;
+        this.available_num = available_num;
     }
 
     public int getProductID() {
@@ -57,6 +60,14 @@ public class Product implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getAvailable_num() {
+        return available_num;
+    }
+
+    public void setAvailable_num(int available_num) {
+        this.available_num = available_num;
     }
 
     public Product(){

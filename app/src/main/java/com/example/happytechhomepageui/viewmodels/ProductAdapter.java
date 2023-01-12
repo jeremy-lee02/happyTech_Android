@@ -18,7 +18,9 @@ import com.example.happytechhomepageui.ProductListFragment;
 import com.example.happytechhomepageui.R;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>  {
     private List<Product> productList;
@@ -39,8 +41,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+        //Format number
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat vn = NumberFormat.getInstance(locale);
+        String price  = vn.format(product.getPrice());
         holder.productNameTextView.setText(product.getName());
-        holder.productPriceTextView.setText(String.valueOf(product.getPrice()));
+        holder.productPriceTextView.setText(price + " VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
