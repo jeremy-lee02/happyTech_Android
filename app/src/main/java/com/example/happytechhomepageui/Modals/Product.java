@@ -1,8 +1,9 @@
 package com.example.happytechhomepageui.Modals;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Product {
+public class Product implements Serializable {
     private int productID;
     private String name;
     private String description;
