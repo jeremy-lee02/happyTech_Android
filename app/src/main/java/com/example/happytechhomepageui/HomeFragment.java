@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -24,6 +27,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.Services.DatabaseHelper;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
+import com.example.happytechhomepageui.viewmodels.ProductAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ public class HomeFragment extends Fragment {
     private DatabaseHelper db;
     ImageSlider imageSlider;
     TextView product;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,6 +65,18 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        db = new DatabaseHelper();
+
+        db.getProducts(new FirebaseCallbackProduct() {
+            @Override
+            public void onCallback(List<Product> list) {
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.featureProduct);
+                ProductAdapter productAdapter =  new ProductAdapter(list);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.setLayoutManager(linearLayoutManager);
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
@@ -72,16 +89,13 @@ public class HomeFragment extends Fragment {
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046124120582140044/unknown.png?width=732&height=300", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046122977554608148/unknown.png?width=732&height=267", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://st2.depositphotos.com/4285885/6818/i/450/depositphotos_68182063-stock-photo-fire-text-special-offer.jpg", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046124031742578789/unknown.png?width=732&height=300", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046125468862140436/unknown.png?width=732&height=305", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126568411504660/unknown.png", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126463772020856/unknown.png", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126701517733958/unknown.png", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
-
-
-
-
 
     }
 }
