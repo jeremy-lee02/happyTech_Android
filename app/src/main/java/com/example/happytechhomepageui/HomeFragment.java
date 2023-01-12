@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
             public void onCallback(List<Product> list) {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.featureProduct);
-                ProductAdapter productAdapter =  new ProductAdapter(list);
+                ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
                 recyclerView.setAdapter(productAdapter);
                 recyclerView.setLayoutManager(linearLayoutManager);
             }
@@ -96,6 +97,7 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126701517733958/unknown.png", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
+
 
     }
 }

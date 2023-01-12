@@ -56,7 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 args.putSerializable("product", product);
                 fragment.setArguments(args);
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frameLayout_productList, fragment);
+                transaction.replace(R.id.frameLayout, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
