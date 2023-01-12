@@ -7,8 +7,6 @@
     tools:context=".HomeFragment"
     android:id="@+id/container">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -105,89 +103,175 @@
                         android:gravity="center"
                         android:textSize="24dp"
                         tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/monitorImage"
+                            android:layout_width="99dp"
+                            android:layout_height="99dp"
+                            android:background="@color/white"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/monitor"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_border_color="#333333"
+                            app:riv_mutate_background="true"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/monitorText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Monitor"
+                            android:textSize="17dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/monitorImage"
+                            app:layout_constraintStart_toStartOf="@+id/monitorImage"
+                            app:layout_constraintTop_toBottomOf="@+id/monitorImage" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/keyboardImage"
+                            android:layout_width="99dp"
+                            android:layout_height="99dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/keyboard"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_border_color="#333333"
+                            app:riv_mutate_background="true"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/keyboardText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Keyboard"
+                            android:textSize="17dp"
+                            app:layout_constraintEnd_toEndOf="@+id/keyboardImage"
+                            app:layout_constraintStart_toStartOf="@+id/keyboardImage"
+                            app:layout_constraintTop_toBottomOf="@+id/keyboardImage" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/mouseImage"
+                            android:layout_width="99dp"
+                            android:layout_height="99dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/mouse"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_border_color="#333333"
+                            app:riv_mutate_background="true"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/mouseText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mouse"
+                            android:textSize="17dp"
+                            app:layout_constraintEnd_toEndOf="@+id/mouseImage"
+                            app:layout_constraintStart_toStartOf="@+id/mouseImage"
+                            app:layout_constraintTop_toBottomOf="@+id/mouseImage" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/headphone"
+                            android:layout_width="99dp"
+                            android:layout_height="99dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/headphone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_border_color="#333333"
+                            app:riv_mutate_background="true"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/headphoneText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Headphone"
+                            android:textSize="17dp"
+                            app:layout_constraintEnd_toEndOf="@+id/headphone"
+                            app:layout_constraintStart_toStartOf="@+id/headphone"
+                            app:layout_constraintTop_toBottomOf="@+id/headphone" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="276dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/featured_products"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/seeAll2"
+                        android:layout_width="124dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="textPersonName"
+                        android:text="See all"
+                        android:textColor="@color/blue"
+                        android:textSize="24dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp">
+                    android:layout_height="match_parent">
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/monitorImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@color/white"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/monitor"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:riv_border_color="#333333"
-                        app:riv_mutate_background="true"
-                        app:riv_oval="true" />
-
-                    <TextView
-                        android:id="@+id/keyboardText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Keyboard"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textView10"
-                        app:layout_constraintStart_toEndOf="@+id/textView9"
-                        app:layout_constraintTop_toBottomOf="@+id/keyboardImage" />
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/keyboardImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/keyboard"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/mouseImage"
-                        app:layout_constraintHorizontal_bias="0.49"
-                        app:layout_constraintStart_toEndOf="@+id/monitorImage"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:riv_border_color="#333333"
-                        app:riv_mutate_background="true"
-                        app:riv_oval="true" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Monitor"
-                        android:layout_marginLeft="20dp"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/monitorImage" />
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/mouseImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/mouse"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:riv_border_color="#333333"
-                        app:riv_mutate_background="true"
-                        app:riv_oval="true" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mouse"
-                        android:textSize="20dp"
-                        android:layout_marginRight="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mouseImage" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </LinearLayout>
 
         </ScrollView>

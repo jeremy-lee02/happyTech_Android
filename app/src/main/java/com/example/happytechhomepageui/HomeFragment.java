@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     ImageSlider imageSlider;
     TextView product;
 
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -71,16 +72,13 @@ public class HomeFragment extends Fragment {
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046124120582140044/unknown.png?width=732&height=300", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046122977554608148/unknown.png?width=732&height=267", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://st2.depositphotos.com/4285885/6818/i/450/depositphotos_68182063-stock-photo-fire-text-special-offer.jpg", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046124031742578789/unknown.png?width=732&height=300", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046125468862140436/unknown.png?width=732&height=305", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126568411504660/unknown.png", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126463772020856/unknown.png", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126701517733958/unknown.png", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
-
-
-
-
 
     }
 }
