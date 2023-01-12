@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
         product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                assert getFragmentManager() != null;
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 ProductListFragment products = new ProductListFragment();
                 fragmentTransaction.replace(R.id.frameLayout,products);
