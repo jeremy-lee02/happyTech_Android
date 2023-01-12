@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -24,6 +27,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.Services.DatabaseHelper;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
+import com.example.happytechhomepageui.viewmodels.ProductAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +62,18 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.frameLayout,products);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+            }
+        });
+        db = new DatabaseHelper();
+
+        db.getProducts(new FirebaseCallbackProduct() {
+            @Override
+            public void onCallback(List<Product> list) {
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.featureProduct);
+                ProductAdapter productAdapter =  new ProductAdapter(list);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.setLayoutManager(linearLayoutManager);
             }
         });
 
