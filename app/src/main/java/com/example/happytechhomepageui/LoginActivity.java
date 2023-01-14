@@ -40,7 +40,11 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
+        if (user != null){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+            return;
+        }
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
