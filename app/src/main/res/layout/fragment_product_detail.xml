@@ -51,24 +51,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="Price: "
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/product_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/productInStock" />
 
                 <TextView
                     android:id="@+id/thePriceOfProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="22dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="TextView"
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@+id/tittle2"
-                    app:layout_constraintTop_toBottomOf="@+id/product_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/productInStock" />
 
                 <TextView
                     android:id="@+id/tittle3"
@@ -98,21 +98,21 @@
                     android:id="@+id/productInStock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="86dp"
-                    android:layout_marginBottom="21dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
                     android:text="TextView"
-                    app:layout_constraintBottom_toTopOf="@+id/productDescription"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.619"
-                    app:layout_constraintStart_toEndOf="@+id/thePriceOfProduct"
-                    app:layout_constraintTop_toBottomOf="@+id/productImageView" />
+                    app:layout_constraintBottom_toTopOf="@+id/tittle2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/productDescription">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -121,16 +121,16 @@
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:text="-"
-                        android:textSize="30sp"/>
+                        android:textSize="30sp" />
 
                     <EditText
-                        android:background="@null"
                         android:id="@+id/amount"
                         android:layout_width="81dp"
                         android:layout_height="match_parent"
-                        android:textAlignment="center"
-                        android:text="0"
-                        />
+                        android:background="@null"
+                        android:inputType="number"
+                        android:text="1"
+                        android:textAlignment="center" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/incrementButton"
@@ -141,28 +141,13 @@
                         android:textSize="30sp" />
                 </LinearLayout>
 
-                <!--                <TextView-->
-<!--                    android:id="@+id/productInStock"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="24dp"-->
-<!--                    android:layout_marginTop="24dp"-->
-<!--                    android:layout_marginEnd="24dp"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="TextView"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/productDescription" />-->
-
-
-
-
-                <!--            <Space-->
-                <!--                android:id="@+id/space"-->
-                <!--                android:layout_width="1dp"-->
-                <!--                android:layout_height="50dp"-->
-                <!--                app:layout_constraintStart_toStartOf="parent"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/productDescription" />-->
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginBottom="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
