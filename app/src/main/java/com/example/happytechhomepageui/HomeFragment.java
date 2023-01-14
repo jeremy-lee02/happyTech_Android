@@ -29,6 +29,7 @@ import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.Services.DatabaseHelper;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
 import com.example.happytechhomepageui.viewmodels.ProductAdapter;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,19 +56,48 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container,false);
         product = (TextView) view.findViewById(R.id.seeAll);
+        RoundedImageView monitor = (RoundedImageView) view.findViewById(R.id.monitorImage);
+        RoundedImageView keyboard = (RoundedImageView) view.findViewById(R.id.keyboardImage);
+        RoundedImageView mouse = (RoundedImageView) view.findViewById(R.id.mouseImage);
+        RoundedImageView headphone = (RoundedImageView) view.findViewById(R.id.headphone);
+        // See All Products
         product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                assert getFragmentManager() != null;
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                ProductListFragment products = new ProductListFragment();
-                fragmentTransaction.replace(R.id.frameLayout,products);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                onClickChange("all");
             }
         });
-        db = new DatabaseHelper();
+        // See all Monitors
+        monitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickChange("Monitor");
+            }
+        });
+        // See all Keyboards
+        keyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickChange("Keyboard");
+            }
+        });
+        // See all Mouse
+        mouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickChange("Mouse");
+            }
+        });
+        // See all Headphones
+        headphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickChange("Headphone");
+            }
+        });
 
+        // Featured Products
+        db = new DatabaseHelper();
         db.getProducts(new FirebaseCallbackProduct() {
             @Override
             public void onCallback(List<Product> list) {
@@ -78,9 +108,17 @@ public class HomeFragment extends Fragment {
                 recyclerView.setLayoutManager(linearLayoutManager);
             }
         });
-
         // Inflate the layout for this fragment
         return view;
+    }
+    // Change listener base on category
+    private void onClickChange(String category) {
+        assert getFragmentManager() != null;
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        ProductListFragment products = new ProductListFragment(category);
+        fragmentTransaction.replace(R.id.frameLayout,products);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

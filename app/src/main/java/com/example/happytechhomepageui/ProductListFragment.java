@@ -30,9 +30,11 @@ import java.util.List;
 public class ProductListFragment extends Fragment {
     private DatabaseHelper db;
     private List<Product> productList ;
+    private String category;
 
-    public ProductListFragment() {
+    public ProductListFragment(String category) {
         // Required empty public constructor
+        this.category = category;
     }
 
 
@@ -43,14 +45,59 @@ public class ProductListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_list, container,false);
         db = new DatabaseHelper();
-        db.getProducts(new FirebaseCallbackProduct() {
-            @Override
-            public void onCallback(List<Product> list) {
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
-                recyclerView.setAdapter(productAdapter);
-            }
-        });
+        // Base on category to display all the products
+        switch (category){
+            case "all":
+                db.getProducts(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        recyclerView.setAdapter(productAdapter);
+                    }
+                });
+                break;
+            case "Monitor":
+                db.getMonitors(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        recyclerView.setAdapter(productAdapter);
+                    }
+                });
+                break;
+            case "Keyboard":
+                db.getKeyboard(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        recyclerView.setAdapter(productAdapter);
+                    }
+                });
+                break;
+            case "Mouse":
+                db.getMouse(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        recyclerView.setAdapter(productAdapter);
+                    }
+                });
+                break;
+            case "Headphone":
+                db.getHeadphone(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        recyclerView.setAdapter(productAdapter);
+                    }
+                });
+                break;
+        }
 
         return view;
     }

@@ -59,6 +59,150 @@ public class DatabaseHelper {
         });
         return productList;
     }
+    // Get all monitors
+    public List<Product> getMonitors(FirebaseCallbackProduct firebaseCallback){
+        List<Product> productList = new ArrayList<Product>();
+        List<Product> monitorList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    int id = Integer.parseInt(dsp.getKey());
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
+                    productList.add(product);
+                }
+                for (Product monitors:productList
+                     ) {
+                    if (monitors.getCategory().equals("Monitor")){
+                        monitorList.add(monitors);
+                    }
+                }
+                firebaseCallback.onCallback(monitorList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return monitorList;
+    }
+    // Get all keyboard
+    public List<Product> getKeyboard(FirebaseCallbackProduct firebaseCallback){
+        List<Product> productList = new ArrayList<Product>();
+        List<Product> keyboardList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    int id = Integer.parseInt(dsp.getKey());
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
+                    productList.add(product);
+                }
+                for (Product keyboard:productList
+                ) {
+                    if (keyboard.getCategory().equals("Keyboard")){
+                        keyboardList.add(keyboard);
+                    }
+                }
+                firebaseCallback.onCallback(keyboardList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return keyboardList;
+    }
+    // Get all mouse
+    public List<Product> getMouse(FirebaseCallbackProduct firebaseCallback){
+        List<Product> productList = new ArrayList<Product>();
+        List<Product> mouseList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    int id = Integer.parseInt(dsp.getKey());
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
+                    productList.add(product);
+                }
+                for (Product monitors:productList
+                ) {
+                    if (monitors.getCategory().equals("Mouse")){
+                        mouseList.add(monitors);
+                    }
+                }
+                firebaseCallback.onCallback(mouseList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return mouseList;
+    }
+    // Get all headphone
+    public List<Product> getHeadphone(FirebaseCallbackProduct firebaseCallback){
+        List<Product> productList = new ArrayList<Product>();
+        List<Product> headphoneList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    int id = Integer.parseInt(dsp.getKey());
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
+                    productList.add(product);
+                }
+                for (Product monitors:productList
+                ) {
+                    if (monitors.getCategory().equals("Headphone")){
+                        headphoneList.add(monitors);
+                    }
+                }
+                firebaseCallback.onCallback(headphoneList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return headphoneList;
+    }
+
+
+
+
     // No need full CRUD for users
 //    //Add PRODUCT
 //    public void addProduct(int productID, String name, String description, long price, String category) {
