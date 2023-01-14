@@ -43,7 +43,7 @@ public class ProductDetailFragment extends Fragment {
     public ProductDetailFragment() {
         // Required empty public constructor
     }
-
+    // Check if Item is available or not
     public String checkItem(Product p){
         if (p.getAvailable_num() == 1){
             return "There is 1 available item in stock";
@@ -62,17 +62,18 @@ public class ProductDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
         // Inflate the layout for this fragment
         Product product = (Product) getArguments().getSerializable("product");
-        //Initialize product view
+        //Initialize view
         TextView productName = (TextView) view.findViewById(R.id.product_name);
 //        TextView productAvailable = (TextView) view.findViewById(R.id.thePriceOfProduct);
         TextView productDescription = (TextView) view.findViewById(R.id.productDescription);
         TextView productPrice = (TextView) view.findViewById(R.id.thePriceOfProduct);
         TextView available = (TextView) view.findViewById(R.id.productInStock);
         Button addToCart = (Button) view.findViewById(R.id.addToCartButton);
-
+        AppCompatButton incrementButton = view.findViewById(R.id.incrementButton);
+        AppCompatButton decrementButton = view.findViewById(R.id.decrementButton);
+        EditText amount = view.findViewById(R.id.amount);
         productName.setText(product.getName());
         available.setText(checkItem(product));
-//        productAvailable.setText(product.getAvailable_num()+"");
         productDescription.setText(product.getDescription());
         // Cast price to String and format to VND
         // Ex: 500000 to 500.000 VND
@@ -87,12 +88,9 @@ public class ProductDetailFragment extends Fragment {
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
         referenceUser = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
-        //Update Button
-        AppCompatButton incrementButton = view.findViewById(R.id.incrementButton);
-        AppCompatButton decrementButton = view.findViewById(R.id.decrementButton);
-        EditText amount = view.findViewById(R.id.amount);
 
 
+        // Check increment and decrement button
         incrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +105,6 @@ public class ProductDetailFragment extends Fragment {
                 }
             }
         });
-
         decrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +137,7 @@ public class ProductDetailFragment extends Fragment {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Add to Cart
+                // Compare the quantity with the available item
                 int newAmount  = Integer.parseInt(amount.getText().toString());
                 if (newAmount < 1){
                     Toast.makeText(getContext(),"Minimum for quantity is 1", Toast.LENGTH_LONG).show();
@@ -162,6 +159,7 @@ public class ProductDetailFragment extends Fragment {
                             cart.setUser(cartUser);
                         }
                         // Check if product is exist
+                        // Assign max value in stock if the total added quantity to the cart is larger than the available item
                         boolean productExists = false;
                         for (Product p : cart.getProducts()) {
                             if (p.getProductID().equals(product.getProductID())) {
@@ -177,6 +175,7 @@ public class ProductDetailFragment extends Fragment {
                                 }
                             }
                         }
+                        // If product does not exist add new products.
                         if (!productExists) {
                             cart.addProduct(product);
                         }
@@ -201,7 +200,6 @@ public class ProductDetailFragment extends Fragment {
                 });
             }
         });
-
         // TODO: Buy Now
 
 
