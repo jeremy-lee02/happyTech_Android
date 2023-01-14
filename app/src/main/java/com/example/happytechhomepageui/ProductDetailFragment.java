@@ -32,8 +32,10 @@ import java.util.Locale;
 public class ProductDetailFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference reference;
+    DatabaseReference referenceUser;
     String uID;
     private Cart cart;
+    User cartUser;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -65,22 +67,20 @@ public class ProductDetailFragment extends Fragment {
         product.setQuantity(1);
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
+        referenceUser = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
-//        reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Cart cart = snapshot.getValue(Cart.class);
-//                cart.addProduct(product,4);
-//                System.out.println(cart.getUser().getFirstName());
-//                reference.child(uID).setValue(cart);
-//                Toast.makeText(getContext(), cart.getUser().getFirstName() + " - Product: " + cart.getProducts().size()  , Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
+        referenceUser.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cartUser = snapshot.getValue(User.class);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // Modify Button (Add to Cart and Buy Now)
         // TODO: Add to Cart
         addToCart.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +94,7 @@ public class ProductDetailFragment extends Fragment {
                         Cart cart = snapshot.getValue(Cart.class);
                         if (cart == null) {
                             cart = new Cart();
+                            cart.setUser(cartUser);
                         }
                         cart.addProduct(product);
                         reference.child(uID).setValue(cart, new DatabaseReference.CompletionListener() {
