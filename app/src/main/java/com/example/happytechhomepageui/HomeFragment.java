@@ -96,6 +96,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
         // Featured Products
         db = new DatabaseHelper();
         db.getProducts(new FirebaseCallbackProduct() {
@@ -103,9 +105,10 @@ public class HomeFragment extends Fragment {
             public void onCallback(List<Product> list) {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.featureProduct);
-                ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(), "HomeFragment");
                 recyclerView.setAdapter(productAdapter);
-                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setLayoutManager(linearLayoutManager)
+                ;
             }
         });
         // Inflate the layout for this fragment

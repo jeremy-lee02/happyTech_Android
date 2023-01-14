@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
+                    android:id="@+id/buttonAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"

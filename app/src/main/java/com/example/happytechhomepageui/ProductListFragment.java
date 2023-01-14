@@ -52,7 +52,7 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(), "ProductListFragment");
                         recyclerView.setAdapter(productAdapter);
                     }
                 });
@@ -62,7 +62,7 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(),"ProductListFragment");
                         recyclerView.setAdapter(productAdapter);
                     }
                 });
@@ -72,7 +72,7 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(), "ProductListFragment");
                         recyclerView.setAdapter(productAdapter);
                     }
                 });
@@ -82,7 +82,7 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(), "ProductListFragment");
                         recyclerView.setAdapter(productAdapter);
                     }
                 });
@@ -92,7 +92,7 @@ public class ProductListFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.productListRecyclerView);
-                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager());
+                        ProductAdapter productAdapter =  new ProductAdapter(list, getFragmentManager(), "ProductListFragment");
                         recyclerView.setAdapter(productAdapter);
                     }
                 });

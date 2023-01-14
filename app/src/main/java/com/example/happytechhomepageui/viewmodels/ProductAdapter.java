@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -14,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.ProductDetailFragment;
-import com.example.happytechhomepageui.ProductListFragment;
 import com.example.happytechhomepageui.R;
 
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -25,16 +24,23 @@ import java.util.Locale;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>  {
     private List<Product> productList;
     private FragmentManager fragmentManager;
-
-    public ProductAdapter(List<Product> productList, FragmentManager fragmentManger) {
+    private String currentFragment;
+    public ProductAdapter(List<Product> productList, FragmentManager fragmentManger, String currentFragment) {
         this.productList = productList;
         this.fragmentManager = fragmentManger;
+        this.currentFragment = currentFragment;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_row, parent, false);
+        LinearLayout linearLayout = view.findViewById(R.id.productItem);
+        if (currentFragment.equals("HomeFragment")) {
+            linearLayout.getLayoutParams().width = 400;
+        } else if (currentFragment.equals("ProductListFragment")) {
+            linearLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+        }
         return new ProductViewHolder(view);
     }
 
