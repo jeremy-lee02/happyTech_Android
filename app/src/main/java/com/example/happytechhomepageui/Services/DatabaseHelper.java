@@ -40,7 +40,7 @@ public class DatabaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dsp : snapshot.getChildren())
                 {
-                    int id = Integer.parseInt(dsp.getKey());
+                    String id = dsp.getKey();
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
@@ -69,7 +69,7 @@ public class DatabaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dsp : snapshot.getChildren())
                 {
-                    int id = Integer.parseInt(dsp.getKey());
+                    String id = dsp.getKey();
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
@@ -104,7 +104,7 @@ public class DatabaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dsp : snapshot.getChildren())
                 {
-                    int id = Integer.parseInt(dsp.getKey());
+                    String id = dsp.getKey();
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
@@ -139,7 +139,7 @@ public class DatabaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dsp : snapshot.getChildren())
                 {
-                    int id = Integer.parseInt(dsp.getKey());
+                    String id = dsp.getKey();
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();
@@ -174,7 +174,7 @@ public class DatabaseHelper {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dsp : snapshot.getChildren())
                 {
-                    int id = Integer.parseInt(dsp.getKey());
+                    String id = dsp.getKey();
                     long price = (parseLong(dsp.child("price").getValue().toString()));
                     String name = dsp.child("name").getValue().toString();
                     String description = dsp.child("description").getValue().toString();

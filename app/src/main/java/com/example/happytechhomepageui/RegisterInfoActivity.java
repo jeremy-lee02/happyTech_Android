@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.happytechhomepageui.Modals.Cart;
 import com.example.happytechhomepageui.Modals.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ import java.util.Objects;
 public class RegisterInfoActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
+    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
     TextView firstNameInput, lastNameInput, phoneInput, addressInput;
     Button registerBtn;
     String email, password;
@@ -106,6 +108,8 @@ public class RegisterInfoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     User user = new User(email, firstName, lastName, phone, address, gender);
+                    Cart cart = new Cart(user);
+                    databaseReference2.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(cart);
                     databaseReference
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
