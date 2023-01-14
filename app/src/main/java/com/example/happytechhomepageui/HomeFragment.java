@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,16 +41,17 @@ public class HomeFragment extends Fragment {
     TextView product;
 
 
+
     public HomeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +102,7 @@ public class HomeFragment extends Fragment {
 
         // Featured Products
         db = new DatabaseHelper();
-        db.getProducts(new FirebaseCallbackProduct() {
+        db.getFeatureProducts(new FirebaseCallbackProduct() {
             @Override
             public void onCallback(List<Product> list) {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -124,10 +126,43 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imageSlider = (ImageSlider) getView().findViewById(R.id.image_slider);
+//        SearchView searchView = view.findViewById(R.id.search_view);
+//        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+//
+//        List<Product> suggestions = new ArrayList<>();
+//        ProductAdapter adapter = new ProductAdapter(suggestions, getFragmentManager(), "");
+//        recyclerView.setAdapter(adapter);
+//
+//        private void updateSuggestions(String newText);{
+//            suggestions.clear();
+//            // Make a request to your server with the new text
+//            // update the suggestions list
+//            adapter.notifyDataSetChanged();
+//            recyclerView.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // Do something with the query
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newProduct) {
+//
+//                // Update the suggestions based on the new text
+//                updateSuggestions(newProduct);
+//                return false;
+//            }
+//        });
+
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 

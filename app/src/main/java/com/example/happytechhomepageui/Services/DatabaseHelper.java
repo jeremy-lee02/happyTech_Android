@@ -51,7 +51,6 @@ public class DatabaseHelper {
                 }
                 firebaseCallback.onCallback(productList);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -59,6 +58,35 @@ public class DatabaseHelper {
         });
         return productList;
     }
+
+    //Get FEATURE PRODUCT
+    public List<Product> getFeatureProducts(FirebaseCallbackProduct firebaseCallback){
+        List<Product> featureProductList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.orderByKey().limitToLast(10).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    String id = dsp.getKey();
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product featureProduct = new Product(id,name,description,price,category, available);
+                    featureProductList.add(featureProduct);
+                }
+                firebaseCallback.onCallback(featureProductList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return featureProductList;
+    }
+
     // Get all monitors
     public List<Product> getMonitors(FirebaseCallbackProduct firebaseCallback){
         List<Product> productList = new ArrayList<Product>();

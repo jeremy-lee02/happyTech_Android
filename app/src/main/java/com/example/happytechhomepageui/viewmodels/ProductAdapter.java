@@ -40,6 +40,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             linearLayout.getLayoutParams().width = 400;
         } else if (currentFragment.equals("ProductListFragment")) {
             linearLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+        } else {
+            linearLayout.getLayoutParams().width = 300;
         }
         return new ProductViewHolder(view);
     }
