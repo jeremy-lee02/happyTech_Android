@@ -65,11 +65,13 @@ public class ProductDetailFragment extends Fragment {
         String price  = vn.format(product.getPrice());
         productPrice.setText(price + " VND");
         product.setQuantity(1);
+
+        //Initialize database
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
         referenceUser = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
-
+        // Store current user
         referenceUser.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -77,7 +79,7 @@ public class ProductDetailFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d("User", error.getMessage());
             }
         });
 
@@ -86,8 +88,7 @@ public class ProductDetailFragment extends Fragment {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int quantity = 4;
-
+                // Add to Cart
                 reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
