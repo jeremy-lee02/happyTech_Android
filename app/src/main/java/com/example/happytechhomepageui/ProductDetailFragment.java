@@ -1,10 +1,13 @@
 package com.example.happytechhomepageui;
 
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.happytechhomepageui.Modals.Product;
@@ -19,6 +22,7 @@ public class ProductDetailFragment extends Fragment {
     public ProductDetailFragment() {
         // Required empty public constructor
     }
+    int count = 0;
 
 
     @Override
@@ -42,6 +46,30 @@ public class ProductDetailFragment extends Fragment {
         NumberFormat vn = NumberFormat.getInstance(locale);
         String price  = vn.format(product.getPrice());
         productPrice.setText(price + " VND");
+
+        AppCompatButton incrementButton = view.findViewById(R.id.incrementButton);
+        AppCompatButton decrementButton = view.findViewById(R.id.decrementButton);
+        EditText amount = view.findViewById(R.id.amount);
+
+
+        incrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count++;
+                amount.setText(""+count);
+            }
+        });
+
+        decrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(count <= 0)
+                    count = 0;
+                else
+                    count--;
+                amount.setText(""+count);
+            }
+        });
 
         return view;
     }
