@@ -40,6 +40,7 @@ public class ProductDetailFragment extends Fragment {
     public ProductDetailFragment() {
         // Required empty public constructor
     }
+    int count = 0;
 
 
     @Override
@@ -121,6 +122,30 @@ public class ProductDetailFragment extends Fragment {
         });
 
         // TODO: Buy Now
+
+        AppCompatButton incrementButton = view.findViewById(R.id.incrementButton);
+        AppCompatButton decrementButton = view.findViewById(R.id.decrementButton);
+        EditText amount = view.findViewById(R.id.amount);
+
+
+        incrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                count++;
+                amount.setText(""+count);
+            }
+        });
+
+        decrementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(count <= 0)
+                    count = 0;
+                else
+                    count--;
+                amount.setText(""+count);
+            }
+        });
 
         return view;
     }
