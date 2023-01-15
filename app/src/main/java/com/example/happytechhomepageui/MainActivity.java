@@ -78,16 +78,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ImageButton cartBtn = findViewById(R.id.cart_button);
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
-        if (currentFragment instanceof CartFragment) {
-            cartBtn.setVisibility(View.GONE);
-        } else {
-            cartBtn.setVisibility(View.VISIBLE);
-        }
-    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        ImageButton cartBtn = findViewById(R.id.cart_button);
+//        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+//        if (currentFragment instanceof CartFragment) {
+//            cartBtn.setVisibility(View.GONE);
+//        } else {
+//            cartBtn.setVisibility(View.VISIBLE);
+//        }
+//    }
 }
