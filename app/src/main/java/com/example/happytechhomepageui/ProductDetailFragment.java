@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class ProductDetailFragment extends Fragment {
@@ -38,7 +39,6 @@ public class ProductDetailFragment extends Fragment {
     String uID;
     private Cart cart;
     User cartUser;
-    int count = 1;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -88,7 +88,7 @@ public class ProductDetailFragment extends Fragment {
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
         referenceUser = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
         uID = user.getUid();
-
+        cart = new Cart(cartUser);
 
         // Check increment and decrement button
         incrementButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class ProductDetailFragment extends Fragment {
                 if(newAmount < product.getAvailable_num()){
                     newAmount++;
                     amount.setText(""+newAmount);
-                    product.setQuantity(newAmount);
+                    cart.getProducts().put(product.getProductID(),newAmount);
                 }else {
                     amount.setText(""+ product.getAvailable_num());
                     Toast.makeText(getContext(),"Only " + product.getAvailable_num() + " left in stock!", Toast.LENGTH_LONG).show();
@@ -111,11 +111,11 @@ public class ProductDetailFragment extends Fragment {
                 int newAmount  = Integer.parseInt(amount.getText().toString());
                 if(newAmount <= 1){
                     newAmount = 1;
-                    product.setQuantity(newAmount);
+                    cart.getProducts().put(product.getProductID(),newAmount);
                 }
                 else{
                     newAmount--;
-                    product.setQuantity(newAmount);
+                    cart.getProducts().put(product.getProductID(),newAmount);
                 }
                 amount.setText(""+newAmount);
             }
@@ -149,7 +149,6 @@ public class ProductDetailFragment extends Fragment {
                     amount.setText(""+ product.getAvailable_num());
                     return;
                 }
-                product.setQuantity(newAmount);
                 reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -161,15 +160,15 @@ public class ProductDetailFragment extends Fragment {
                         // Check if product is exist
                         // Assign max value in stock if the total added quantity to the cart is larger than the available item
                         boolean productExists = false;
-                        for (Product p : cart.getProducts()) {
-                            if (p.getProductID().equals(product.getProductID())) {
-                                if (p.getQuantity() + product.getQuantity() >= p.getAvailable_num()){
-                                    p.setQuantity(p.getAvailable_num());
+                        for(Map.Entry<String, Integer> p: cart.getProducts().entrySet()) {
+                            if (p.getKey().equals(product.getProductID())) {
+                                if (p.getValue() + newAmount >= product.getAvailable_num()){
+                                    p.setValue(product.getAvailable_num());
                                     productExists = true;
                                     break;
                                 }
-                                if(p.getQuantity() + product.getQuantity() < p.getAvailable_num()) {
-                                    p.setQuantity(p.getQuantity() + product.getQuantity());
+                                if(p.getValue() + newAmount < product.getAvailable_num()) {
+                                    p.setValue(p.getValue() + newAmount);
                                     productExists = true;
                                     break;
                                 }
@@ -177,7 +176,7 @@ public class ProductDetailFragment extends Fragment {
                         }
                         // If product does not exist add new products.
                         if (!productExists) {
-                            cart.addProduct(product);
+                            cart.addProduct(product,newAmount);
                         }
                         reference.child(uID).setValue(cart, new DatabaseReference.CompletionListener() {
                             @Override

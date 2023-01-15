@@ -2,32 +2,31 @@ package com.example.happytechhomepageui.Modals;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cart {
     private User user;
-    private List<Product> products;
+    private HashMap<String,Integer> products;
 
     public Cart(User user) {
         this.user = user;
-        this.products = new ArrayList<>();
+        this.products = new HashMap<>();
     }
     public Cart(){
-        this.products = new ArrayList<>();
+        this.products = new HashMap<>();
+
     }
 
-    public void addProduct(Product product) {
-        if(products == null){
-            products = new ArrayList<>();
-        }
-        for (Product p : products) {
-            if (p.getProductID().equals(product.getProductID())) {
-                p.setQuantity(p.getQuantity() + product.getQuantity());
+    public void addProduct(Product product,int quantity) {
+        for(Map.Entry<String, Integer> p: products.entrySet()) {
+            if (p.getValue().equals(product.getProductID())) {
+                p.setValue(p.getValue() + quantity);
                 return;
             }
         }
-        products.add(product);
+        products.put(product.getProductID(),quantity);
+
     }
 
     public User getUser() {
@@ -38,7 +37,7 @@ public class Cart {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
+    public HashMap<String,Integer> getProducts() {
         return products;
     }
 
