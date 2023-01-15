@@ -34,6 +34,8 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+
+
     public String getProductID() {
         return productID;
     }

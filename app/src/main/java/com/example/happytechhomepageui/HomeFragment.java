@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.Services.DatabaseHelper;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
 import com.example.happytechhomepageui.viewmodels.ProductAdapter;
+import com.example.happytechhomepageui.viewmodels.SuggestionAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -39,7 +42,9 @@ public class HomeFragment extends Fragment {
     private DatabaseHelper db;
     ImageSlider imageSlider;
     TextView product;
-
+    private RecyclerView recyclerView;
+    private SearchView searchView;
+    private SuggestionAdapter adapter;
 
 
     public HomeFragment() {
@@ -57,6 +62,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container,false);
+
         product = (TextView) view.findViewById(R.id.seeAll);
         RoundedImageView monitor = (RoundedImageView) view.findViewById(R.id.monitorImage);
         RoundedImageView keyboard = (RoundedImageView) view.findViewById(R.id.keyboardImage);
@@ -131,41 +137,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imageSlider = (ImageSlider) getView().findViewById(R.id.image_slider);
-//        SearchView searchView = view.findViewById(R.id.search_view);
-//        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-//
-//        List<Product> suggestions = new ArrayList<>();
-//        ProductAdapter adapter = new ProductAdapter(suggestions, getFragmentManager(), "");
-//        recyclerView.setAdapter(adapter);
-//
-//        private void updateSuggestions(String newText);{
-//            suggestions.clear();
-//            // Make a request to your server with the new text
-//            // update the suggestions list
-//            adapter.notifyDataSetChanged();
-//            recyclerView.setVisibility(View.VISIBLE);
-//        }
-//
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                // Do something with the query
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newProduct) {
-//
-//                // Update the suggestions based on the new text
-//                updateSuggestions(newProduct);
-//                return false;
-//            }
-//        });
-
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
-
         slideModels.add(new SlideModel("https://st2.depositphotos.com/4285885/6818/i/450/depositphotos_68182063-stock-photo-fire-text-special-offer.jpg", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046124031742578789/unknown.png?width=732&height=300", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://media.discordapp.net/attachments/1036490378154618984/1046126568411504660/unknown.png", ScaleTypes.FIT));
@@ -175,5 +148,60 @@ public class HomeFragment extends Fragment {
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
 
+//        searchView = view.findViewById(R.id.search_view);
+//        recyclerView = view.findViewById(R.id.recycler_view);
+//
+//        adapter = new SuggestionAdapter(new SuggestionAdapter.OnSuggestionClickListener() {
+//            @Override
+//            public void onSuggestionClick(String suggestion) {
+//                // Handle suggestion click
+//            }
+//        });
+//        recyclerView.setAdapter(adapter);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // Get the filtered list of products and update the adapter
+//                List<Product> filteredProducts = filterProducts(newText);
+//                adapter.updateSuggestions(filteredProducts);
+//                return false;
+//            }
+//        });
+//        getDataFromServer();
+//    }
+//    private void getDataFromServer() {
+//        List<Product> products = db.getSearchProducts(produc);
+//        adapter.updateSuggestions(products);
+//    }
+//    private List<Product> filterProducts(String query) {
+//        List<Product> filteredProducts = new ArrayList<>();
+//        for (Product product : products) {
+//            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+//                filteredProducts.add(product);
+//            }
+//        }
+//        return filteredProducts;
+//    }
+//}
+//
+//
+//
+//    }
+//
+//    private List<Product> filterProducts(String query) {
+//        List<Product> filteredProducts = new ArrayList<>();
+//        for (Product product : products) {
+//            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+//                filteredProducts.add(product);
+//            }
+//        }
+//        return filteredProducts;
+//
     }
 }
