@@ -59,6 +59,33 @@ public class DatabaseHelper {
         return productList;
     }
 
+    //Get PRODUCT For searchview
+    public List<Product> getSearchProducts(FirebaseCallbackProduct firebaseCallback){
+        List<Product> productList = new ArrayList<Product>();
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dsp : snapshot.getChildren())
+                {
+                    String id = dsp.getKey();
+                    long price = (parseLong(dsp.child("price").getValue().toString()));
+                    String name = dsp.child("name").getValue().toString();
+                    String description = dsp.child("description").getValue().toString();
+                    String category = dsp.child("category").getValue().toString();
+                    int available = Integer.parseInt(dsp.child("available").getValue().toString()) ;
+                    Product product = new Product(id,name,description,price,category, available);
+                    productList.add(product);
+                }
+                firebaseCallback.onCallback(productList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return productList;
+    }
     //Get FEATURE PRODUCT
     public List<Product> getFeatureProducts(FirebaseCallbackProduct firebaseCallback){
         List<Product> featureProductList = new ArrayList<Product>();
