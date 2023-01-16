@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_info"
         android:title="Information" />
     <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="Notification" />
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Cart" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_baseline_person_24"
