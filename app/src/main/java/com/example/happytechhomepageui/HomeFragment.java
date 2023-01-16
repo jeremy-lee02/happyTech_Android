@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private SearchView searchView;
     private SuggestionAdapter adapter;
+    private List<Product> suggesProduct;
+
 
 
     public HomeFragment() {
@@ -147,61 +150,71 @@ public class HomeFragment extends Fragment {
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
+        searchView = view.findViewById(R.id.search_view);
+        recyclerView = view.findViewById(R.id.search_recycler_view);
 
-//        searchView = view.findViewById(R.id.search_view);
-//        recyclerView = view.findViewById(R.id.recycler_view);
-//
-//        adapter = new SuggestionAdapter(new SuggestionAdapter.OnSuggestionClickListener() {
+//        searchView.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onSuggestionClick(String suggestion) {
-//                // Handle suggestion click
+//            public void onClick(View view) {
+//
 //            }
 //        });
-//        recyclerView.setAdapter(adapter);
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                // Get the filtered list of products and update the adapter
-//                List<Product> filteredProducts = filterProducts(newText);
-//                adapter.updateSuggestions(filteredProducts);
-//                return false;
-//            }
-//        });
-//        getDataFromServer();
-//    }
-//    private void getDataFromServer() {
-//        List<Product> products = db.getSearchProducts(produc);
-//        adapter.updateSuggestions(products);
-//    }
-//    private List<Product> filterProducts(String query) {
-//        List<Product> filteredProducts = new ArrayList<>();
-//        for (Product product : products) {
-//            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
-//                filteredProducts.add(product);
-//            }
-//        }
-//        return filteredProducts;
-//    }
-//}
-//
-//
-//
-//    }
-//
-//    private List<Product> filterProducts(String query) {
-//        List<Product> filteredProducts = new ArrayList<>();
-//        for (Product product : products) {
-//            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
-//                filteredProducts.add(product);
-//            }
-//        }
-//        return filteredProducts;
-//
+
+        db = new DatabaseHelper();
+
+        suggesProduct = new ArrayList<>();
+        adapter = new SuggestionAdapter(suggesProduct, suggestion -> {
+            // Handle suggestion click
+        });
+        recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                recyclerView.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Get the filtered list of products and update the adapter
+                recyclerView.setVisibility(View.VISIBLE);
+                filterProductsFromServer(newText);
+                return false;
+            }
+        });
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+        });
+        getDataFromServer();
+    }
+
+    private void getDataFromServer() {
+        db.getProducts(productList -> {
+            suggesProduct.addAll(productList);
+            adapter.notifyDataSetChanged();
+        });
+    }
+
+    private void filterProductsFromServer(String query) {
+        db.getProducts(new FirebaseCallbackProduct() {
+            @Override
+            public void onCallback(List<Product> productList) {
+                List<Product> filteredProducts = new ArrayList<>();
+                for (Product product : productList) {
+                    if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                        filteredProducts.add(product);
+                    }
+                }
+                adapter.updateSuggestions(filteredProducts);
+            }
+        });
     }
 }
+
+
