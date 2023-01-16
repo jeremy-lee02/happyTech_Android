@@ -20,12 +20,14 @@
             android:id="@+id/productImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/logo" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="24dp"
+            android:paddingTop="30dp"
+            android:layout_gravity="center"
             android:paddingStart="10dp">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,7 +102,7 @@
         android:id="@+id/view0"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:background="@color/teal_700" />

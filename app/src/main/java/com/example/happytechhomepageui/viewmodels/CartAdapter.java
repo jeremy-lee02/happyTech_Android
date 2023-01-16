@@ -1,5 +1,6 @@
 package com.example.happytechhomepageui.viewmodels;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,10 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happytechhomepageui.Modals.Product;
+import com.example.happytechhomepageui.ProductDetailFragment;
 import com.example.happytechhomepageui.R;
 
 import java.text.NumberFormat;
@@ -52,6 +56,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.productPriceTextView.setText(price + " VND");
         holder.quantity.setText(product.getQuantity() +"");
         holder.available.setText(checkItem(product));
+        // OnClick the product
+        holder.productNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ProductDetailFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("product", product);
+                fragment.setArguments(args);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        //OnClick the checkbox
+        
     }
 
     @Override
