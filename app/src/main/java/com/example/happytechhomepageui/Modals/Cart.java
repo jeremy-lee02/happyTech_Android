@@ -30,12 +30,20 @@ public class Cart {
         products.put(product.getProductID(),quantity);
     }
 
+    public void setProducts (HashMap<String,Integer> products){
+        this.products = products;
+    }
+
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public void clearCart(){
+        this.products = new HashMap<>();
     }
 
 

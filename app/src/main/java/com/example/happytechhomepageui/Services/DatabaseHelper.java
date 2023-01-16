@@ -7,7 +7,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.happytechhomepageui.Modals.Order;
 import com.example.happytechhomepageui.Modals.Product;
+import com.example.happytechhomepageui.repo.FireBaseCallbackOrder;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -226,6 +228,91 @@ public class DatabaseHelper {
             }
         });
         return headphoneList;
+    }
+    ///FOR ORDER
+    public void addOrder(String customerId, HashMap<Product, Integer> orderProducts) {
+        db = FirebaseDatabase.getInstance().getReference("Orders");
+        Date date = Calendar.getInstance().getTime();
+        Order order = new Order(customerId, date ,orderProducts, false);
+        db.push().setValue(order.ToFireBaseData());
+    }
+
+    public void deleteOrder(int orderId){
+        db = FirebaseDatabase.getInstance().getReference("Orders");
+        db.child(Integer.toString(orderId)).removeValue();
+    }
+
+    public void completeOrder(int orderID){
+        db = FirebaseDatabase.getInstance().getReference("Orders");
+        db.child(Integer.toString(orderID)).child("completed").setValue("true");
+    }
+    public List<Order> getOrderByCustomerID(String customerID, List<Order> orderList){
+        List<Order> result = new ArrayList<>();
+        for (Order order: orderList
+        ) {
+            if(customerID.equals(order.getCustomerId())){
+                result.add(order);
+            }
+        }
+        return result;
+    }
+
+    public List<Order> getOrderByDate(Date date, List<Order> orderList){
+        List<Order> result = new ArrayList<>();
+        for (Order order: orderList
+        ) {
+            Date orderDate= new Date();
+            try {
+                orderDate=new SimpleDateFormat("dd/MM/yyyy").parse(order.getOrderDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(date.equals(order.getOrderDate())){
+                result.add(order);
+            }
+        }
+        return result;
+    }
+
+    public List<Order> getOrder(FireBaseCallbackOrder firebaseCallback){
+//        List<Product> productList = new ArrayList<Product>();
+        List<Order> orderList = new ArrayList<Order>();
+        this.getProducts(new FirebaseCallbackProduct() {
+            @Override
+            public void onCallback(List<Product> list) {
+                db = FirebaseDatabase.getInstance().getReference("Orders");
+                db.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dsp : snapshot.getChildren())
+                        {
+                            String customerId = (dsp.child("customerId").getValue().toString());
+                            Date orderDate = new Date();
+                            try {
+                                orderDate = new SimpleDateFormat("dd-mm-yyyy").parse(dsp.child("orderDate").getValue().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            boolean completed = Boolean.parseBoolean(dsp.child("completed").getValue().toString());
+                            HashMap <Product,Integer> orderProducts = new HashMap<>();
+                            for(DataSnapshot product: dsp.child("orderProducts").getChildren()) {
+                                orderProducts.put(list.get(Integer.parseInt(product.getKey())), Integer.valueOf(product.getValue().toString()));
+                            }
+                            Order order = new Order(customerId,orderDate,orderProducts,completed);
+                            orderList.add(order);
+                        }
+
+                        firebaseCallback.onCallback(orderList);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+        return orderList;
     }
 
 
