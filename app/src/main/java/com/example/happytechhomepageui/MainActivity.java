@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         TextView fragmentName = findViewById(R.id.fragmentText);
         ImageView logo = (ImageView) findViewById(R.id.imageView);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, homeFragment, "home").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, homeFragment, "home").commit();
         //Check if current fragment is is not cartFragment
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -47,27 +47,27 @@ public class MainActivity extends AppCompatActivity {
                     fragmentName.setVisibility(View.VISIBLE);
                     logo.setVisibility(View.GONE);
                     fragmentName.setText("Home");
-
+                    bottomNavigationView.getMenu().getItem(0).setChecked(true);
                 }
                 else if (currentFragment instanceof InfoFragment) {
                     fragmentName.setVisibility(View.VISIBLE);
                     logo.setVisibility(View.GONE);
                     fragmentName.setText("Order Information");
-
+                    bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 }
                 else if (currentFragment instanceof CartFragment) {
                     fragmentName.setVisibility(View.VISIBLE);
                     logo.setVisibility(View.GONE);
                     fragmentName.setText("Cart");
-
+                    bottomNavigationView.getMenu().getItem(2).setChecked(true);
                 }
                 else if (currentFragment instanceof ProfileFragment) {
                     fragmentName.setVisibility(View.GONE);
                     logo.setVisibility(View.VISIBLE);
+                    bottomNavigationView.getMenu().getItem(3).setChecked(true);
                 }
             }
         });
-
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -122,35 +122,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
+        BottomNavigationView nav =  (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         if (currentFragment instanceof HomeFragment) {
             finish();
-            return;
-        }
-        if (currentFragment instanceof CartFragment) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, homeFragment, "home").commit();
-            return;
-        }
-        if (currentFragment instanceof InfoFragment) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, homeFragment, "home").commit();
-            return;
-        }
-        if (currentFragment instanceof ProfileFragment) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, homeFragment, "home").commit();
-            return;
+        }else {
+            super.onBackPressed();
         }
 
-        super.onBackPressed();
     }
-    //
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        ImageButton cartBtn = findViewById(R.id.cart_button);
-//        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
-//        if (currentFragment instanceof CartFragment) {
-//            cartBtn.setVisibility(View.GONE);
-//        } else {
-//            cartBtn.setVisibility(View.VISIBLE);
-//        }
-//    }
 }
