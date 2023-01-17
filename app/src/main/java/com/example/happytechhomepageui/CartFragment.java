@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +103,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cart = snapshot.getValue(Cart.class);
-                // Check if cart is empty
+                Log.d("Cart", cart.getUser().getFirstName());
                 if (cart.getProducts().isEmpty()){
                     order.setVisibility(View.GONE);
                     cartText.setText("There is no item in cart");
@@ -146,6 +147,10 @@ public class CartFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         db.addOrder(uID,getProductList(cart.getProducts()));
+                        for(Map.Entry<Product, Integer> products: getProductList(cart.getProducts()).entrySet()) {
+                            Product product = products.getKey();
+                            db.updateProduct(Integer.parseInt(product.getProductID()), product.getName(),product.getDescription(),product.getPrice(),product.getCategory(),product.getAvailable_num()-products.getValue());
+                        }
                         cart.clearCart();
                         reference.child(uID).setValue(cart);
                         Fragment fragment = new CartFragment();

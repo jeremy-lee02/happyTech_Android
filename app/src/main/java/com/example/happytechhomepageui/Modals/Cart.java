@@ -27,7 +27,7 @@ public class Cart {
                 return;
             }
         }
-        products.put(product.getProductID(),quantity);
+        products.put(product.getProductID().toString(),quantity);
     }
 
     public void setProducts (HashMap<String,Integer> products){

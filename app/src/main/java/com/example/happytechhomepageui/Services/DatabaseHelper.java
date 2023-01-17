@@ -325,24 +325,24 @@ public class DatabaseHelper {
 //        Product product = new Product(productID,  name,  description,  price, category);
 //        db.child(Integer.toString(productID)).setValue(product);
 //    }
-//    //Update PRODUCT
-//    public void updateProduct(int productID, String name, String description, long price, String category){
-//        db = FirebaseDatabase.getInstance().getReference("Products");
-//        HashMap product = new HashMap();
-//        product.put("productID", productID);
-//        product.put("name", name);
-//        product.put("description", description);
-//        product.put("price", price);
-//        product.put("category", category);
-//
-//        db.child(Integer.toString(productID)).updateChildren(product).addOnCompleteListener(new OnCompleteListener() {
-//            @Override
-//            public void onComplete(@NonNull Task task) {
-//                //TODO
-//            }
-//        });
-//
-//    }
+    //Update PRODUCT
+    public void updateProduct(int productID, String name, String description, long price, String category, int available){
+        db = FirebaseDatabase.getInstance().getReference("Products");
+        HashMap product = new HashMap();
+        product.put("productID", productID);
+        product.put("name", name);
+        product.put("description", description);
+        product.put("price", price);
+        product.put("category", category);
+        product.put("available", available);
+
+        db.child(Integer.toString(productID)).updateChildren(product).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                //TODO
+            }
+        });
+    }
 //    //Delete PRODUCT
 //    public void deleteProduct(int productID){
 //        db = FirebaseDatabase.getInstance().getReference("Products");

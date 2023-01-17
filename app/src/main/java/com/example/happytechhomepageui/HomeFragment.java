@@ -34,6 +34,8 @@ import com.example.happytechhomepageui.Services.DatabaseHelper;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
 import com.example.happytechhomepageui.viewmodels.ProductAdapter;
 import com.example.happytechhomepageui.viewmodels.SuggestionAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     private SearchView searchView;
     private SuggestionAdapter adapter;
     private List<Product> suggesProduct;
+    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
 
 
 
