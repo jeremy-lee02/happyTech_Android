@@ -38,6 +38,7 @@
                 android:background="#5C5CF3"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/textOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -46,6 +47,13 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Delivering Order"/>
+        <TextView
+            android:id="@+id/emptyOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:text=""/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +62,19 @@
                 android:id="@+id/orderRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/order_item" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/orderRecycleViewDone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/order_item" />
         </LinearLayout>

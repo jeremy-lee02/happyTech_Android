@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Order {
+public class Order implements Serializable {
     private String customerId;
     private String orderDate;
     private boolean completed;
@@ -60,7 +61,7 @@ public class Order {
         this.completed = completed;
     }
 
-    public Map<Product, Integer> getOrderProducts() {
+    public HashMap<Product, Integer> getOrderProducts() {
         return orderProducts;
     }
 
