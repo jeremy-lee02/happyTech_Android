@@ -65,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                     fragmentName.setVisibility(View.GONE);
                     logo.setVisibility(View.VISIBLE);
                     bottomNavigationView.getMenu().getItem(3).setChecked(true);
+                } else if(currentFragment instanceof ProductListFragment){
+                    fragmentName.setVisibility(View.VISIBLE);
+                    logo.setVisibility(View.GONE);
+                    fragmentName.setText("Product List");
+                    bottomNavigationView.getMenu().getItem(0).setChecked(true);
+                } else if(currentFragment instanceof ProductDetailFragment){
+                    fragmentName.setVisibility(View.VISIBLE);
+                    logo.setVisibility(View.GONE);
+                    fragmentName.setText("Product Details");
+                    bottomNavigationView.getMenu().getItem(0).setChecked(true);
                 }
             }
         });
