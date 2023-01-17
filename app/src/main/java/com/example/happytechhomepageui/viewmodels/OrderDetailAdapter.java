@@ -35,7 +35,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     @NonNull
     @Override
     public OrderDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_details_item, parent, false);
         return new OrderDetailViewHolder(view);
     }
 
@@ -46,7 +46,13 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         NumberFormat vn = NumberFormat.getInstance(locale);
         String price  = vn.format(product.getPrice());
 
-//        holder.productName.setText(product.getName());
+        if (product.getName().length() > 20){
+            holder.productName.setText(product.getName().substring(0,20)+"...");
+        }
+        else{
+            holder.productName.setText(product.getName());
+        }
+        holder.quantity.setText(productList.get(product).toString());
         holder.price.setText(price + " VND");
         holder.quantity.setText(productList.get(product).toString());
 
@@ -66,7 +72,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             productName = (TextView) itemView.findViewById(R.id.productNameTextView);
             price = (TextView) itemView.findViewById(R.id.productPriceTextView);
             quantity = (TextView) itemView.findViewById(R.id.num);
-
         }
 
     }

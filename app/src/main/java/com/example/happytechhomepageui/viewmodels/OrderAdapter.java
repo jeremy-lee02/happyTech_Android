@@ -49,6 +49,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         holder.totalPrice.setText(Integer.toString(order.getSubtotal()));
         holder.date.setText(order.getOrderDate());
 
+        if (order.isCompleted()){
+            holder.status.setText("Complete");
+        }else {
+            holder.status.setText("Delivering");
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,10 +78,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
     public static class OderViewHolder extends RecyclerView.ViewHolder{
         TextView date;
         TextView totalPrice;
+        TextView status;
         public OderViewHolder(@NonNull View itemView){
             super(itemView);
-            date = itemView.findViewById(R.id.orderDate);;
+            date = itemView.findViewById(R.id.orderDate);
             totalPrice = itemView.findViewById(R.id.orderProductTotalPrice);
+            status = itemView.findViewById(R.id.status);
         }
 
     }

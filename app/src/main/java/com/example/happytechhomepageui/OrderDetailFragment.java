@@ -33,16 +33,12 @@ import java.util.Map;
 
 public class OrderDetailFragment extends Fragment {
     FirebaseUser user;
-    DatabaseReference reference;
     DatabaseReference referenceUser;
     String uID;
-    List<Product> allProducts;
-    DatabaseHelper db;
 
     public OrderDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +53,7 @@ public class OrderDetailFragment extends Fragment {
         TextView total = (TextView) view.findViewById(R.id.orderTotalPrice);
         TextView date = (TextView) view.findViewById(R.id.orderDate);
         TextView status = (TextView) view.findViewById(R.id.orderStatus);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.order_detail_item);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.order_detail_recycle);
 
         //Get User
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -88,12 +84,10 @@ public class OrderDetailFragment extends Fragment {
         }else {
             status.setText("Your order is delivered soon");
         }
-
         // SetUp recycleView
         OrderDetailAdapter orderDetailAdapter = new OrderDetailAdapter(order.getOrderProducts(), getFragmentManager(), getContext());
         recyclerView.setAdapter(orderDetailAdapter);
         return view;
-
 
     }
 
