@@ -35,8 +35,9 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/search_recycler_view"
+                    android:background="@drawable/background_product"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="190dp"
                     android:layout_below="@+id/search_view"
                     android:layout_alignStart="@id/search_view"
                     android:layout_alignEnd="@+id/search_view"

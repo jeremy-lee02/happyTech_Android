@@ -1,28 +1,17 @@
 package com.example.happytechhomepageui;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +36,7 @@ public class HomeFragment extends Fragment {
     private SearchView searchView;
     private SuggestionAdapter adapter;
     private List<Product> suggesProduct;
-
+    private FragmentManager fragmentManager;
 
 
     public HomeFragment() {
@@ -57,9 +46,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,6 +126,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Create function for IMGSlider
         imageSlider = (ImageSlider) getView().findViewById(R.id.image_slider);
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
@@ -150,20 +139,15 @@ public class HomeFragment extends Fragment {
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
+
+        // Create function for search bar
         searchView = view.findViewById(R.id.search_view);
         recyclerView = view.findViewById(R.id.search_recycler_view);
-
-//        searchView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
         db = new DatabaseHelper();
 
         suggesProduct = new ArrayList<>();
-        adapter = new SuggestionAdapter(suggesProduct, suggestion -> {
+        adapter = new SuggestionAdapter(suggesProduct, getFragmentManager(), suggestion -> {
             // Handle suggestion click
         });
         recyclerView.setAdapter(adapter);
@@ -178,18 +162,20 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Get the filtered list of products and update the adapter
-                recyclerView.setVisibility(View.VISIBLE);
+                if (newText.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    filterProductsFromServer(newText);
+                }
                 filterProductsFromServer(newText);
                 return false;
             }
         });
+
         searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    recyclerView.setVisibility(View.GONE);
-                }
-            }
+            public void onFocusChange(View v, boolean hasFocus) {}
         });
         getDataFromServer();
     }

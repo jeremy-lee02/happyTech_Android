@@ -103,6 +103,10 @@ public class CartFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 cart = snapshot.getValue(Cart.class);
                 // Check if cart is empty
+//                if (cart == null){
+//                    Cart cart = new Cart(currentUser);
+//                    reference.child(FirebaseAuth.getInstance().getCurrentUser()).setValue(cart);
+//                }
                 if (cart.getProducts().isEmpty()){
                     order.setVisibility(View.GONE);
                     cartText.setText("There is no item in cart");
