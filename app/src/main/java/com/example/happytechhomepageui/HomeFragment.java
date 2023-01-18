@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     private SearchView searchView;
     private SuggestionAdapter adapter;
     private List<Product> suggesProduct;
+    private TextView notFound;
     DatabaseReference databaseReference2 = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
 
     private FragmentManager fragmentManager;
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment {
         RoundedImageView keyboard = (RoundedImageView) view.findViewById(R.id.keyboardImage);
         RoundedImageView mouse = (RoundedImageView) view.findViewById(R.id.mouseImage);
         RoundedImageView headphone = (RoundedImageView) view.findViewById(R.id.headphone);
+        notFound = view.findViewById(R.id.errorCode);
         // See All Products
         product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,19 +163,35 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 recyclerView.setVisibility(View.GONE);
+                notFound.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Get the filtered list of products and update the adapter
-                if (newText.isEmpty()) {
-                    recyclerView.setVisibility(View.GONE);
-                } else {
-                    recyclerView.setVisibility(View.VISIBLE);
-                    filterProductsFromServer(newText);
-                }
-                filterProductsFromServer(newText);
+                db.getProducts(new FirebaseCallbackProduct() {
+                    @Override
+                    public void onCallback(List<Product> list) {
+                        for (Product product : list) {
+                            if (!product.getName().toLowerCase().contains(newText.toLowerCase()) || newText.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                notFound.setVisibility(View.GONE);
+                                if (!product.getName().toLowerCase().contains(newText.toLowerCase())){
+                                    notFound.setVisibility(View.VISIBLE);
+                                    notFound.setText("* No item found with '" + newText + "'");
+                                    notFound.setTextColor(getResources().getColor(R.color.red));
+                                }
+
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                notFound.setVisibility(View.GONE);
+                                filterProductsFromServer(newText);
+                            }
+                        }
+                    }
+                });
+
                 return false;
             }
         });

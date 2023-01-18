@@ -12,5 +12,6 @@
     <color name="dark_gray">#80232323</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="yellow">#FEFE00</color>
+    <color name="red">#F40000</color>
 
 </resources>
