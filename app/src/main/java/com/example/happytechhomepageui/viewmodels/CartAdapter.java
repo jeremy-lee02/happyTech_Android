@@ -3,12 +3,14 @@ package com.example.happytechhomepageui.viewmodels;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +27,12 @@ import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.ProductDetailFragment;
 import com.example.happytechhomepageui.ProfileFragment;
 import com.example.happytechhomepageui.R;
+import com.example.happytechhomepageui.Services.DatabaseHelper;
+import com.example.happytechhomepageui.repo.FireBaseCallbackImage;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Cart cart;
     private Context context;
     DatabaseReference reference;
+    DatabaseHelper db;
 
 
     public CartAdapter(HashMap<Product, Integer> productList,Cart cart,String uID, FragmentManager fragmentManger, Context context) {
@@ -84,7 +90,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.quantity.setText(productList.get(product).toString());
         holder.available.setText(checkItem(product));
         reference = FirebaseDatabase.getInstance("https://test-auth-android-eee23-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Cart");
-
+        db =  new DatabaseHelper();
+        try {
+            db.getImage(product.getName(), new FireBaseCallbackImage() {
+                @Override
+                public void onCallback(Bitmap bitmap) {
+                    holder.productImageView.setImageBitmap(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // OnClick the product
         holder.productNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +211,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
     public static class CartViewHolder extends RecyclerView.ViewHolder {
 
-        //        ImageView productImageView;
+        ImageView productImageView;
         TextView productNameTextView;
         TextView productPriceTextView;
         TextView available;
@@ -209,7 +225,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-//            productImageView = itemView.findViewById(R.id.productImageView);
+            productImageView = itemView.findViewById(R.id.productImageView);
             available = itemView.findViewById(R.id.available);
             quantity  = itemView.findViewById(R.id.updateNum);
             productNameTextView = itemView.findViewById(R.id.productNameTextView);

@@ -3,22 +3,31 @@ package com.example.happytechhomepageui.Services;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.happytechhomepageui.Modals.Order;
 import com.example.happytechhomepageui.Modals.Product;
+import com.example.happytechhomepageui.repo.FireBaseCallbackImage;
 import com.example.happytechhomepageui.repo.FireBaseCallbackOrder;
 import com.example.happytechhomepageui.repo.FirebaseCallbackProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -296,7 +305,7 @@ public class DatabaseHelper {
                             boolean completed = Boolean.parseBoolean(dsp.child("completed").getValue().toString());
                             HashMap <Product,Integer> orderProducts = new HashMap<>();
                             for(DataSnapshot product: dsp.child("orderProducts").getChildren()) {
-                                orderProducts.put(list.get(Integer.parseInt(product.getKey())), Integer.valueOf(product.getValue().toString()));
+                                orderProducts.put(list.get(Integer.parseInt(product.getKey())-1), Integer.valueOf(product.getValue().toString()));
                             }
                             Order order = new Order(customerId,orderDate,orderProducts,completed);
                             orderList.add(order);
@@ -343,6 +352,23 @@ public class DatabaseHelper {
             }
         });
     }
+    // Get Image
+    public Bitmap getImage(String imgName, FireBaseCallbackImage onCallback) throws IOException {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("imgs/"+imgName + ".png");
+        final File localfile = File.createTempFile(imgName,".png");
+        Log.v("IMGNAME", imgName);
+        Bitmap bitmap = null;
+        storageRef.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                onCallback.onCallback(bitmap);
+                localfile.delete();
+            }
+        });
+        return bitmap;
+    }
+
 //    //Delete PRODUCT
 //    public void deleteProduct(int productID){
 //        db = FirebaseDatabase.getInstance().getReference("Products");

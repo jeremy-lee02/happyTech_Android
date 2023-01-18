@@ -1,5 +1,7 @@
 package com.example.happytechhomepageui;
 
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.happytechhomepageui.Modals.Cart;
 import com.example.happytechhomepageui.Modals.Product;
 import com.example.happytechhomepageui.Modals.User;
+import com.example.happytechhomepageui.Services.DatabaseHelper;
+import com.example.happytechhomepageui.repo.FireBaseCallbackImage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
@@ -39,6 +45,7 @@ public class ProductDetailFragment extends Fragment {
     String uID;
     private Cart cart;
     User cartUser;
+    DatabaseHelper db;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -64,6 +71,7 @@ public class ProductDetailFragment extends Fragment {
         Product product = (Product) getArguments().getSerializable("product");
         //Initialize view
         TextView productName = (TextView) view.findViewById(R.id.product_name);
+        ImageView image = (ImageView) view.findViewById(R.id.productImageView);
 //        TextView productAvailable = (TextView) view.findViewById(R.id.thePriceOfProduct);
         TextView productDescription = (TextView) view.findViewById(R.id.productDescription);
         TextView productPrice = (TextView) view.findViewById(R.id.thePriceOfProduct);
@@ -82,6 +90,18 @@ public class ProductDetailFragment extends Fragment {
         String price  = vn.format(product.getPrice());
         productPrice.setText(price + " VND");
 
+        db =  new DatabaseHelper();
+        // initialize image
+        try {
+            db.getImage(product.getName(), new FireBaseCallbackImage() {
+                @Override
+                public void onCallback(Bitmap bitmap) {
+                    image.setImageBitmap(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Initialize database
         user = FirebaseAuth.getInstance().getCurrentUser();
