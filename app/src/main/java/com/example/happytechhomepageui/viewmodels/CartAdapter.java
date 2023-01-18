@@ -122,7 +122,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 // Display an AlertDialog
                 AlertDialog.Builder dialog = new AlertDialog.Builder(context);
                 dialog.setTitle("Do you want to delete?");
-                dialog.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         productList.remove(product);
@@ -135,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         Toast.makeText(context, "Delete successful", Toast.LENGTH_LONG).show();
                     }
                 });
-                dialog.setNegativeButton("Update details", new DialogInterface.OnClickListener() {
+                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Fragment fragment = new CartFragment();

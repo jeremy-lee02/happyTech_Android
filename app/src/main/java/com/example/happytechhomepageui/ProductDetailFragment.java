@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,6 +78,7 @@ public class ProductDetailFragment extends Fragment {
         TextView productPrice = (TextView) view.findViewById(R.id.thePriceOfProduct);
         TextView available = (TextView) view.findViewById(R.id.productInStock);
         Button addToCart = (Button) view.findViewById(R.id.addToCartButton);
+        Button buyNow = (Button) view.findViewById(R.id.buyButton);
         AppCompatButton incrementButton = view.findViewById(R.id.incrementButton);
         AppCompatButton decrementButton = view.findViewById(R.id.decrementButton);
         EditText amount = view.findViewById(R.id.amount);
@@ -221,6 +223,76 @@ public class ProductDetailFragment extends Fragment {
         });
         // TODO: Buy Now
 
+        buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Compare the quantity with the available item
+                int newAmount  = Integer.parseInt(amount.getText().toString());
+                if (newAmount < 1){
+                    Toast.makeText(getContext(),"Minimum for quantity is 1", Toast.LENGTH_LONG).show();
+                    amount.setText(""+1);
+                    return;
+                }
+                if (newAmount > product.getAvailable_num()){
+                    Toast.makeText(getContext(),"Only " + product.getAvailable_num() + " left in stock!", Toast.LENGTH_LONG).show();
+                    amount.setText(""+ product.getAvailable_num());
+                    return;
+                }
+                reference.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Cart cart = snapshot.getValue(Cart.class);
+                        if (cart == null) {
+                            cart = new Cart();
+                            cart.setUser(cartUser);
+                        }
+                        // Check if product is exist
+                        // Assign max value in stock if the total added quantity to the cart is larger than the available item
+                        boolean productExists = false;
+                        for(Map.Entry<String, Integer> p: cart.getProducts().entrySet()) {
+                            if (p.getKey().equals(product.getProductID())) {
+                                if (p.getValue() + newAmount >= product.getAvailable_num()){
+                                    p.setValue(product.getAvailable_num());
+                                    productExists = true;
+                                    break;
+                                }
+                                if(p.getValue() + newAmount < product.getAvailable_num()) {
+                                    p.setValue(p.getValue() + newAmount);
+                                    productExists = true;
+                                    break;
+                                }
+                            }
+                        }
+                        // If product does not exist add new products.
+                        if (!productExists) {
+                            cart.addProduct(product,newAmount);
+                        }
+                        reference.child(uID).setValue(cart, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                if (databaseError != null) {
+                                    // Handle the error
+                                    Log.d("Cart", databaseError.getMessage());
+                                } else {
+                                    // Update was successful
+                                    Toast.makeText(getContext(), "Product added to cart", Toast.LENGTH_LONG).show();
+                                    Fragment fragment = new CartFragment();
+                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.frameLayout, fragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+                                }
+                            }
+                        });
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle the error
+                        Log.d("Cart", error.getMessage());
+                    }
+                });
+            }
+        });
 
 
         return view;
