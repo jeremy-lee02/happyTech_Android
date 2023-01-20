@@ -119,58 +119,58 @@
         app:layout_constraintEnd_toEndOf="@+id/forgotPassword"
         app:layout_constraintStart_toStartOf="@+id/forgotPassword"
         app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />
-    <!--  Password Input  -->
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="OR"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/createAccount"
-        app:layout_constraintStart_toStartOf="@+id/createAccount"
-        app:layout_constraintTop_toBottomOf="@+id/createAccount" />
-    <!--  Password Input  -->
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="17dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/or"
-        app:layout_constraintEnd_toEndOf="@+id/login_btn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/or"
-        app:layout_constraintTop_toBottomOf="@+id/createAccount"
-        app:layout_constraintVertical_bias="0.47" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/or"
-        app:layout_constraintEnd_toStartOf="@+id/or"
-        app:layout_constraintStart_toStartOf="@+id/login_btn"
-        app:layout_constraintTop_toTopOf="@+id/or" />
-    <!--  Password Input  -->
-    <Button
-        android:id="@+id/loginGoogle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Sign in with Google"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:drawableLeft="@drawable/google_icon"
-        android:padding= "15dp"
-        android:paddingRight="15dp"
-        android:background="@drawable/button_full_rounded"
-        app:layout_constraintEnd_toEndOf="@+id/view3"
-        app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toBottomOf="@+id/or" />
+<!--    <TextView-->
+<!--        android:id="@+id/or"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="OR"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/createAccount"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/createAccount"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/createAccount" />-->
+
+<!--    <View-->
+<!--        android:id="@+id/view3"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="17dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/or"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/login_btn"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/or"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/createAccount"-->
+<!--        app:layout_constraintVertical_bias="0.47" />-->
+
+<!--    <View-->
+<!--        android:id="@+id/view2"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/or"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/or"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/login_btn"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/or" />-->
+<!--    &lt;!&ndash;  Password Input  &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/loginGoogle"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="Sign in with Google"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:gravity="center"-->
+<!--        android:drawableLeft="@drawable/google_icon"-->
+<!--        android:padding= "15dp"-->
+<!--        android:paddingRight="15dp"-->
+<!--        android:background="@drawable/button_full_rounded"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/view3"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/view2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/or" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
