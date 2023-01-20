@@ -174,19 +174,21 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onCallback(List<Product> list) {
                         for (Product product : list) {
-                            if (!product.getName().toLowerCase().contains(newText.toLowerCase()) || newText.isEmpty()) {
+                            if (newText.isEmpty()) {
                                 recyclerView.setVisibility(View.GONE);
                                 notFound.setVisibility(View.GONE);
-                                if (!product.getName().toLowerCase().contains(newText.toLowerCase())){
+                            }else {
+                                if (product.getName().toLowerCase().contains(newText.toLowerCase())){
+                                    Log.d("iscontain?", String.valueOf(product.getName().toLowerCase().contains(newText.toLowerCase())));
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    notFound.setVisibility(View.GONE);
+                                    filterProductsFromServer(newText);
+                                }else {
+                                    recyclerView.setVisibility(View.GONE);
                                     notFound.setVisibility(View.VISIBLE);
                                     notFound.setText("* No item found with '" + newText + "'");
                                     notFound.setTextColor(getResources().getColor(R.color.red));
                                 }
-
-                            } else {
-                                recyclerView.setVisibility(View.VISIBLE);
-                                notFound.setVisibility(View.GONE);
-                                filterProductsFromServer(newText);
                             }
                         }
                     }
